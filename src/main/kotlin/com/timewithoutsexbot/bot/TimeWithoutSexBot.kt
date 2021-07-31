@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit
 class TimeWithoutSexBot(private val lastSexMessageDateRepository: LastSexMessageDateRepository) :
     TelegramLongPollingBot() {
 
-    private val threshold = 18000
+    private val threshold = 600
     private val sexWords = arrayOf("sex", "секс", "няшит", "поебем", "девствен", "няшкаться", "няшкал", "ебат")
 
     override fun getBotToken(): String {
@@ -38,7 +38,7 @@ class TimeWithoutSexBot(private val lastSexMessageDateRepository: LastSexMessage
     }
 
     private fun isFirstMessage(message: Message, lastSexMessage: Int?) =
-        lastSexMessage == null && message.date > System.currentTimeMillis() / 1000
+        lastSexMessage == null && message.date > (System.currentTimeMillis() / 1000) - 120
 
     private fun sendMessage(chatId: Long, text: String) {
         val sendMessage = SendMessage()
